@@ -67,7 +67,10 @@ public class DataSet {
 				e.printStackTrace();
 			}
 		}else if( fileType == TEXTFILE ){
-			TextDataReader reader = new TextDataReader(filename);
+//			TextDataReader reader = new TextDataReader(filename);
+			WordFilter reader = new WordFilter(filename);
+			reader.setMinimumWordLength(20);
+			
 			initialize(reader);
 			featureMap = reader.getFeatureMap();
 		}

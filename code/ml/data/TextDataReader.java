@@ -19,12 +19,13 @@ import ml.utils.HashMapCounter;
  *
  */
 public class TextDataReader implements Iterator<Example>{
-	private String nextLine; // next line in the file
-	private BufferedReader in; // source to be reading data from
+	protected String nextLine; // next line in the file
+	protected BufferedReader in; // source to be reading data from
 	
 	// keep track of the mapping of the words to their feature index
-	private HashMap<String, Integer> wordToFeature = new HashMap<String,Integer>();
-	private int currentFeature = 0;
+	protected HashMap<String, Integer> wordToFeature = new HashMap<String,Integer>();
+	private HashMap<String, Integer> wordToFeatureFiltered = new HashMap<String, Integer>();
+	protected int currentFeature = 0;
 		
 	/**
 	 * @param textFile the text file containing the examples

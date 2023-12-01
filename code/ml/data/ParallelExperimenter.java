@@ -13,7 +13,7 @@ public class ParallelExperimenter {
         System.out.println("Starting");
 
         // set up experiments
-        String path = "data/suicide.train";
+        String path = "data/suicide-test.train";
 
         Experimenter experiment = new Experimenter();
         experiment.setRepetitions(5);
