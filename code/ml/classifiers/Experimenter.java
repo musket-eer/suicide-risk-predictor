@@ -3,7 +3,6 @@ package ml.classifiers;
 import ml.classifiers.PerceptronClassifier;
 import ml.classifiers.AveragePerceptronClassifier;
  
-import ml.classifiers.RandomClassifier;
 import ml.data.CrossValidationSet;
 import ml.data.DataSet;
 import ml.data.DataSetSplit;
@@ -49,22 +48,20 @@ public class Experimenter {
 		System.out.println("Starting");
 	
 		// set up experiments
-		String path = "data/processed_suicide_detection2.train";
+		String path = "data/suicide.train";
 		
 		Experimenter experiment = new Experimenter();
 		experiment.setRepetitions(5);
 		System.out.println("Generating n-fold");
 		// generate n-fold
+		System.out.println("start loading dataset");
+		
 		DataSet data = new DataSet(path, 1);
+		System.out.println("Complete loading dataset");
 		CrossValidationSet tenFolds = new CrossValidationSet(data, 10, true);
-		ClassifierTimer timer = new ClassifierTimer();
 		
 		// variables for experiments
-		int classifier = ClassifierFactory.DECISION_TREE;
-		int depth = 1;
-		ClassifierFactory factory = new ClassifierFactory(classifier, depth); 
-		Classifier ova = new OVAClassifier(factory);
-		Classifier ava = new AVAClassifier(factory);
+
 		Classifier avg = new AveragePerceptronClassifier();
 		
 		Classifier classifiers = avg;
@@ -72,7 +69,6 @@ public class Experimenter {
 		
 		DataSet train1 = tenFolds.getValidationSet(1).getTrain();
 		DataSet test1 =  train1 = tenFolds.getValidationSet(1).getTest();
-		timer.timeClassifier(classifiers, data, 1);
 
 		double overallFoldAccuracy = 0.0;
 		for (int i = 0 ; i < 10; i++) {
