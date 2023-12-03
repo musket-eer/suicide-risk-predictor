@@ -21,7 +21,8 @@ public class ParallelExperimenter {
         // generate n-fold
         System.out.println("start loading dataset");
 
-        DataSet data = new DataSet(path, 1);
+        WordFilter reader = new WordFilter(path);
+        DataSet data = new DataSet(path, reader, 1);
         System.out.println("Complete loading dataset");
         CrossValidationSet tenFolds = new CrossValidationSet(data, 10, true);
 
