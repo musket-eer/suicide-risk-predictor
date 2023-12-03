@@ -7,10 +7,13 @@ import ml.data.CrossValidationSet;
 import ml.data.DataSet;
 import ml.data.DataSetSplit;
 import ml.data.Example;
+import ml.data.WordFilter;
 
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
+
+import javax.xml.crypto.Data;
 
 import ml.classifiers.*;
 
@@ -55,8 +58,13 @@ public class Experimenter {
 		System.out.println("Generating n-fold");
 		// generate n-fold
 		System.out.println("start loading dataset");
+		WordFilter filter = new WordFilter(path);
+		for (int l = 2; l < 10; l++ ) {
+		filter.setMinimumWordLength(l);
 		
-		DataSet data = new DataSet(path, 1);
+		DataSet data = new DataSet(path, filter, 1);
+	
+
 		System.out.println("Complete loading dataset");
 		CrossValidationSet tenFolds = new CrossValidationSet(data, 10, true);
 		
@@ -66,6 +74,7 @@ public class Experimenter {
 		
 		Classifier classifiers = avg;
 		
+	
 		
 		DataSet train1 = tenFolds.getValidationSet(1).getTrain();
 		DataSet test1 =  train1 = tenFolds.getValidationSet(1).getTest();
@@ -93,9 +102,19 @@ public class Experimenter {
 				double foldAccuracy = ((double)(correct * 100)/ total);
 				foldAccuracies+= foldAccuracy;
 			}
+			
 			overallFoldAccuracy += foldAccuracies/experiment.getRepetitions();
+			
 			System.out.println("fold " + String.valueOf(i) + " ==" + String.valueOf(foldAccuracies/experiment.getRepetitions()));
+			foldAccuracies = 0.0; 
 		}
 		System.out.println(overallFoldAccuracy);
+		
+	}		
+
+		
+
+		
+
 	}
 }
