@@ -19,6 +19,7 @@ import java.util.Set;
  */
 public class DataSet {
 	private ArrayList<Example> data = new ArrayList<Example>(); // the data/examples in this data set
+	
 	// the mapping from feature indices to the name of the feature
 	private HashMap<Integer, String> featureMap = new HashMap<Integer, String>();
 	private HashSet<Double> labels = new HashSet<Double>();
@@ -33,7 +34,7 @@ public class DataSet {
 	 * @param filename the location of the file
 	 * @param fileType what type of file, using the class defined constants (e.g. CSVFILE)
 	 */
-	public DataSet(String filename, int fileType){
+	public DataSet(String filename, WordFilter reader, int fileType){
 		if( fileType == CSVFILE ){
 			int numColumns = -1;
 
@@ -60,21 +61,25 @@ public class DataSet {
 					}
 				}
 					
-				CSVDataReader reader = new CSVDataReader(in, labelIndex);
-				initialize(reader);
+				CSVDataReader reader2 = new CSVDataReader(in, labelIndex);
+				initialize(reader2);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else if( fileType == TEXTFILE ){
 //			TextDataReader reader = new TextDataReader(filename);
-			WordFilter reader = new WordFilter(filename);
-			reader.setMinimumWordLength(20);
 			
-			initialize(reader);
-			featureMap = reader.getFeatureMap();
+			
+				initialize(reader);
+				featureMap = reader.getFeatureMap();
+			
 		}
 	}
+
+
+	
+	
 	
 	/**
 	 * Read all of the data from the reader and populate this dataset.
@@ -88,6 +93,10 @@ public class DataSet {
 			labels.add(next.getLabel());
 		}
 	}
+
+
+
+	
 		
 	/**
 	 * Constructs a new empty dataset (i.e. no examples) with the features
