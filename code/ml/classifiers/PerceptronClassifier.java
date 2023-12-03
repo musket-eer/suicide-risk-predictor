@@ -8,6 +8,7 @@ import java.util.Random;
 
 import ml.data.DataSet;
 import ml.data.Example;
+import ml.data.WordFilter;
 
 /**
  * Basic perceptron classifier
@@ -153,7 +154,8 @@ public class PerceptronClassifier implements Classifier {
 	
 	public static void main(String[] args) {
 		String path = "data/Suicide_Detection.train";
-		DataSet data = new DataSet(path, DataSet.TEXTFILE);
+		WordFilter reader = new WordFilter(path);
+		DataSet data = new DataSet(path, reader, DataSet.TEXTFILE);
 		PerceptronClassifier classifier = new PerceptronClassifier();
 		classifier.train(data);
 		
