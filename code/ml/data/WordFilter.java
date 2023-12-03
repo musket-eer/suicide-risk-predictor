@@ -4,6 +4,7 @@
 package ml.data;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import ml.utils.HashMapCounter;
 
@@ -13,6 +14,8 @@ import ml.utils.HashMapCounter;
  */
 public class WordFilter extends TextDataReader{
 	private int minimumWordLength;
+	private String wordlist;
+	private boolean filtertype = true;
 	public WordFilter(String textFile) {
 		super(textFile);
 		// TODO Auto-generated constructor stub
@@ -22,7 +25,12 @@ public class WordFilter extends TextDataReader{
 	public void setMinimumWordLength(int minimumLength) {
 		minimumWordLength = minimumLength;
 	}
-	
+	public void setwordlist (String words){
+		wordlist = words;
+	}
+	public void filtervs (boolean filtering){
+		filtertype = filtering;
+	}
 	@Override
 	public Example next() {
 		Example data = null;
@@ -47,9 +55,10 @@ public class WordFilter extends TextDataReader{
 					counter.increment(w);
 				}
 			}
-			
+			if(filtertype){
 			for( String word: counter.keySet() ){
 				if (word.length() >= minimumWordLength) {
+					
 				if( !wordToFeature.containsKey(word) ){
 					wordToFeature.put(word, currentFeature);
 					currentFeature++;
@@ -58,15 +67,42 @@ public class WordFilter extends TextDataReader{
 				data.addFeature(wordToFeature.get(word), counter.get(word));
 			}
 				}
+			}else {
+				for(String word: counter.keySet()){
+						if (word == wordlist) {
+					
+				if( !wordToFeature.containsKey(word) ){
+					wordToFeature.put(word, currentFeature);
+					currentFeature++;
+				}
+				
+				data.addFeature(wordToFeature.get(word), counter.get(word));
+			}
+		}
+	}
+			
+		
+				
+							
 			
 			try {
 				nextLine = in.readLine();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		
+		
+			
+				
 		}
+			
+	
+		
+		
+		
 		
 		return data;
 	}
+	}
 
-}
+
