@@ -58,8 +58,9 @@ public class Experimenter {
 		System.out.println("Generating n-fold");
 		// generate n-fold
 		System.out.println("start loading dataset");
-		WordFilter filter = new WordFilter(path);
+		
 		for (int l = 2; l < 9; l++ ) {
+		WordFilter filter = new WordFilter(path);
 		filter.setMinimumWordLength(l);
 		
 		DataSet data = new DataSet(path, filter, 1);
