@@ -19,7 +19,6 @@ public class WordFilter extends TextDataReader{
 	public WordFilter(String textFile) {
 		super(textFile);
 		// TODO Auto-generated constructor stub
-		
 	}
 	
 	public void setMinimumWordLength(int minimumLength) {
@@ -80,29 +79,16 @@ public class WordFilter extends TextDataReader{
 			}
 		}
 	}
-			
-		
-				
-							
-			
 			try {
 				nextLine = in.readLine();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		
-		
-			
 				
 		}
-			
-	
-		
-		
-		
 		
 		return data;
 	}
-	}
+}
 
 

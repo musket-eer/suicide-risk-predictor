@@ -51,7 +51,7 @@ public class Experimenter {
 		System.out.println("Starting");
 	
 		// set up experiments
-		String path = "data/suicide-test.train";
+		String path = "data/suicide-test2.train";
 		
 		Experimenter experiment = new Experimenter();
 		experiment.setRepetitions(5);
@@ -139,10 +139,11 @@ public class Experimenter {
 		string.add("insane");
 		string.add("insanity");
 		string.add("fail");
-		string.add("faliure");
+		string.add("failure");
 		string.add("pain");
 		string.add("painful");
 		string.add("crying");
+		string.add("");
 
 		
 	for(String word: string){
